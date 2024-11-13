@@ -9,8 +9,6 @@
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #f0f8ff;
-            margin: 0;
-            padding: 0;
         }
         .container {
             width: 100%;
@@ -21,12 +19,8 @@
             border-radius: 10px;
             background-color: #ffffff;
         }
-        h2 {
-            margin-bottom: 20px;
-        }
         .form-group {
             margin-bottom: 15px;
-            text-align: left;
         }
         label {
             font-weight: bold;
@@ -46,37 +40,12 @@
             color: #fff;
             border-radius: 5px;
             cursor: pointer;
-            width: 100%; /* Botão ocupa toda a largura disponível */
         }
         button:hover {
             background-color: #0077cc;
         }
         .back-button {
             background-color: #f44336;
-        }
-        .result {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            button {
-                padding: 12px;
-            }
-        }
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-            button {
-                padding: 14px;
-                font-size: 16px;
-            }
         }
     </style>
 </head>
@@ -133,7 +102,7 @@
                 const preco = localStorage.getItem(bitola.key) || '0.00'; // Pega do localStorage ou define 0.00 como padrão
                 const option = document.createElement('option');
                 option.value = preco;
-                option.textContent = `${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m`;
+                option.textContent = ${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m;
                 bitolaSelect.appendChild(option);
             });
         }
