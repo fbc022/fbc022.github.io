@@ -53,36 +53,32 @@
     <div class="container">
         <h2>Coluna/Viga</h2>
         <div class="form-group">
-            <label for="estribo1_coluna">Estribo 1 (cm):</label>
-            <input type="number" id="estribo1_coluna">
+            <label for="estribo1">Estribo 1 (cm):</label>
+            <input type="number" id="estribo1">
         </div>
         <div class="form-group">
-            <label for="estribo2_coluna">Estribo 2 (cm):</label>
-            <input type="number" id="estribo2_coluna">
+            <label for="estribo2">Estribo 2 (cm):</label>
+            <input type="number" id="estribo2">
         </div>
         <div class="form-group">
-            <label for="estribo3_coluna">Estribo 3 (cm):</label>
-            <input type="number" id="estribo3_coluna">
+            <label for="espaçamento">Espaçamento (cm):</label>
+            <input type="number" id="espaçamento">
         </div>
         <div class="form-group">
-            <label for="bitola_estribo_coluna">Bitola do estribo (mm):</label>
-            <select id="bitola_estribo_coluna"></select>
+            <label for="bitola_estribo">Bitola do estribo (mm):</label>
+            <select id="bitola_estribo"></select>
         </div>
         <div class="form-group">
-            <label for="espaco_coluna">Espaçamento (cm):</label>
-            <input type="number" id="espaco_coluna">
+            <label for="comprimento">Comprimento (m):</label>
+            <input type="number" id="comprimento">
         </div>
         <div class="form-group">
-            <label for="comprimento_coluna">Comprimento (m):</label>
-            <input type="number" id="comprimento_coluna">
+            <label for="quantidade_ferr">Quantidade de ferro:</label>
+            <input type="number" id="quantidade_ferr">
         </div>
         <div class="form-group">
-            <label for="bitola_ferro_coluna">Bitola do ferro (mm):</label>
-            <select id="bitola_ferro_coluna"></select>
-        </div>
-        <div class="form-group">
-            <label for="quantidade_ferr_coluna">Quantidade de ferro:</label>
-            <input type="number" id="quantidade_ferr_coluna">
+            <label for="bitola_ferro">Bitola do ferro (mm):</label>
+            <select id="bitola_ferro"></select>
         </div>
         <button onclick="calcularColunaViga()">Calcular</button>
         <button class="back-button" onclick="window.location.href='index.html'">Voltar ao Menu</button>
@@ -91,7 +87,7 @@
 
     <script>
         // Função para carregar as bitolas do localStorage
-        function carregarBitolasColuna() {
+        function carregarBitolas() {
             const bitolas = [
                 { key: 'preco_4_2', label: '4,2 mm' },
                 { key: 'preco_5', label: '5 mm' },
@@ -104,8 +100,8 @@
                 { key: 'preco_25', label: '25 mm' }
             ];
 
-            const bitolaEstriboSelect = document.getElementById('bitola_estribo_coluna');
-            const bitolaFerroSelect = document.getElementById('bitola_ferro_coluna');
+            const bitolaEstriboSelect = document.getElementById('bitola_estribo');
+            const bitolaFerroSelect = document.getElementById('bitola_ferro');
             bitolaEstriboSelect.innerHTML = '';
             bitolaFerroSelect.innerHTML = '';
 
@@ -114,36 +110,45 @@
                 const optionEstribo = document.createElement('option');
                 optionEstribo.value = preco;
                 optionEstribo.textContent = `${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m`;
-
-                const optionFerro = optionEstribo.cloneNode(true);
-
                 bitolaEstriboSelect.appendChild(optionEstribo);
+
+                const optionFerro = document.createElement('option');
+                optionFerro.value = preco;
+                optionFerro.textContent = `${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m`;
                 bitolaFerroSelect.appendChild(optionFerro);
             });
         }
 
-        // Função para calcular o valor da coluna/viga
+        // Função para calcular o valor da Coluna/Viga
         function calcularColunaViga() {
-            let estribo1 = parseFloat(document.getElementById('estribo1_coluna').value);
-            let estribo2 = parseFloat(document.getElementById('estribo2_coluna').value);
-            let estribo3 = parseFloat(document.getElementById('estribo3_coluna').value);
-            let bitola_estribo = parseFloat(document.getElementById('bitola_estribo_coluna').value);
-            let espaco = parseFloat(document.getElementById('espaco_coluna').value);
-            let comprimento = parseFloat(document.getElementById('comprimento_coluna').value);
-            let bitola_ferro = parseFloat(document.getElementById('bitola_ferro_coluna').value);
-            let quantidade_ferr = parseFloat(document.getElementById('quantidade_ferr_coluna').value);
+            let estribo1 = parseFloat(document.getElementById('estribo1').value);
+            let estribo2 = parseFloat(document.getElementById('estribo2').value);
+            let espacamento = parseFloat(document.getElementById('espaçamento').value);
+            let bitola_estribo = parseFloat(document.getElementById('bitola_estribo').value);
+            let comprimento = parseFloat(document.getElementById('comprimento').value);
+            let quantidade_ferr = parseFloat(document.getElementById('quantidade_ferr').value);
+            let bitola_ferro = parseFloat(document.getElementById('bitola_ferro').value);
 
-            let corteEstribo = ((estribo1 + estribo2 + estribo3) / 100) + 0.10;
-            let quantidadeEstribo = comprimento / espaco;
+            // Cálculo do corte do estribo
+            let corteEstribo = ((estribo1 + estribo2) * 2) / 100 + 0.10;
+
+            // Cálculo da quantidade de estribos
+            let quantidadeEstribo = comprimento / espacamento;
+
+            // Cálculo do valor do estribo
             let valorEstribo = (corteEstribo * quantidadeEstribo) * bitola_estribo;
+
+            // Cálculo do valor do ferro principal
             let valorFerroPrincipal = (comprimento * quantidade_ferr) * bitola_ferro;
+
+            // Cálculo do valor final da Coluna/Viga
             let valorColunaViga = valorFerroPrincipal + valorEstribo;
 
             document.getElementById('resultadoColunaViga').innerText = 'Valor da Coluna/Viga: R$ ' + valorColunaViga.toFixed(2);
         }
 
         // Carregar as bitolas e os valores ao carregar a página
-        window.onload = carregarBitolasColuna;
+        window.onload = carregarBitolas;
     </script>
 </body>
 </html>
