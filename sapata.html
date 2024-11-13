@@ -71,15 +71,7 @@
         <div class="form-group">
             <label for="bitola">Bitola (mm):</label>
             <select id="bitola">
-                <option value="1.32">4,2mm - R$ 1,32/m</option>
-                <option value="1.78">5mm - R$ 1,78/m</option>
-                <option value="2.47">6,3mm - R$ 2,47/m</option>
-                <option value="3.93">8mm - R$ 3,93/m</option>
-                <option value="5.46">10mm - R$ 5,46/m</option>
-                <option value="8.82">12,5mm - R$ 8,82/m</option>
-                <option value="14.38">16mm - R$ 14,38/m</option>
-                <option value="21.26">20mm - R$ 21,26/m</option>
-                <option value="36.43">25mm - R$ 36,43/m</option>
+                <!-- Opções serão preenchidas dinamicamente pelo JavaScript -->
             </select>
         </div>
         <button onclick="calcularSapata()">Calcular</button>
@@ -88,6 +80,34 @@
     </div>
 
     <script>
+        // Função para carregar os valores das bitolas do localStorage
+        function carregarBitolas() {
+            const bitolas = [
+                { key: 'preco_4_2', label: '4,2mm' },
+                { key: 'preco_5', label: '5mm' },
+                { key: 'preco_6_3', label: '6,3mm' },
+                { key: 'preco_8', label: '8mm' },
+                { key: 'preco_10', label: '10mm' },
+                { key: 'preco_12_5', label: '12,5mm' },
+                { key: 'preco_16', label: '16mm' },
+                { key: 'preco_20', label: '20mm' },
+                { key: 'preco_25', label: '25mm' }
+            ];
+            
+            const bitolaSelect = document.getElementById('bitola');
+            bitolaSelect.innerHTML = ''; // Limpa as opções existentes
+
+            // Adiciona cada bitola como uma opção
+            bitolas.forEach(bitola => {
+                const preco = localStorage.getItem(bitola.key) || '0.00'; // Pega do localStorage ou define 0.00 como padrão
+                const option = document.createElement('option');
+                option.value = preco;
+                option.textContent = `${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m`;
+                bitolaSelect.appendChild(option);
+            });
+        }
+
+        // Função de cálculo da sapata
         function calcularSapata() {
             let comprimento = parseFloat(document.getElementById('comprimento').value);
             let largura = parseFloat(document.getElementById('largura').value);
@@ -102,6 +122,9 @@
 
             document.getElementById('resultadoSapata').innerText = 'Valor da Sapata: R$ ' + valorSapata.toFixed(2);
         }
+
+        // Carrega as bitolas do localStorage ao carregar a página
+        window.onload = carregarBitolas;
     </script>
 </body>
 </html>
