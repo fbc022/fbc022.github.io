@@ -66,7 +66,17 @@
         </div>
         <div class="form-group">
             <label for="bitola_estribo">Bitola do estribo (mm):</label>
-            <select id="bitola_estribo"></select>
+            <select id="bitola_estribo">
+                <option value="1.32">4,2mm - R$ 1,32/m</option>
+                <option value="1.78">5mm - R$ 1,78/m</option>
+                <option value="2.47">6,3mm - R$ 2,47/m</option>
+                <option value="3.93">8mm - R$ 3,93/m</option>
+                <option value="5.46">10mm - R$ 5,46/m</option>
+                <option value="8.82">12,5mm - R$ 8,82/m</option>
+                <option value="14.38">16mm - R$ 14,38/m</option>
+                <option value="21.26">20mm - R$ 21,26/m</option>
+                <option value="36.43">25mm - R$ 36,43/m</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="comprimento">Comprimento (m):</label>
@@ -78,7 +88,17 @@
         </div>
         <div class="form-group">
             <label for="bitola_ferro">Bitola do ferro (mm):</label>
-            <select id="bitola_ferro"></select>
+            <select id="bitola_ferro">
+                <option value="1.32">4,2mm - R$ 1,32/m</option>
+                <option value="1.78">5mm - R$ 1,78/m</option>
+                <option value="2.47">6,3mm - R$ 2,47/m</option>
+                <option value="3.93">8mm - R$ 3,93/m</option>
+                <option value="5.46">10mm - R$ 5,46/m</option>
+                <option value="8.82">12,5mm - R$ 8,82/m</option>
+                <option value="14.38">16mm - R$ 14,38/m</option>
+                <option value="21.26">20mm - R$ 21,26/m</option>
+                <option value="36.43">25mm - R$ 36,43/m</option>
+            </select>
         </div>
         <button onclick="calcularColunaViga()">Calcular</button>
         <button class="back-button" onclick="window.location.href='index.html'">Voltar ao Menu</button>
@@ -86,40 +106,6 @@
     </div>
 
     <script>
-        // Função para carregar as bitolas do localStorage
-        function carregarBitolas() {
-            const bitolas = [
-                { key: 'preco_4_2', label: '4,2 mm' },
-                { key: 'preco_5', label: '5 mm' },
-                { key: 'preco_6_3', label: '6,3 mm' },
-                { key: 'preco_8', label: '8 mm' },
-                { key: 'preco_10', label: '10 mm' },
-                { key: 'preco_12_5', label: '12,5 mm' },
-                { key: 'preco_16', label: '16 mm' },
-                { key: 'preco_20', label: '20 mm' },
-                { key: 'preco_25', label: '25 mm' }
-            ];
-
-            const bitolaEstriboSelect = document.getElementById('bitola_estribo');
-            const bitolaFerroSelect = document.getElementById('bitola_ferro');
-            bitolaEstriboSelect.innerHTML = '';
-            bitolaFerroSelect.innerHTML = '';
-
-            bitolas.forEach(bitola => {
-                const preco = localStorage.getItem(bitola.key) || '0.00';
-                const optionEstribo = document.createElement('option');
-                optionEstribo.value = preco;
-                optionEstribo.textContent = `${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m`;
-                bitolaEstriboSelect.appendChild(optionEstribo);
-
-                const optionFerro = document.createElement('option');
-                optionFerro.value = preco;
-                optionFerro.textContent = `${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m`;
-                bitolaFerroSelect.appendChild(optionFerro);
-            });
-        }
-
-        // Função para calcular o valor da Coluna/Viga
         function calcularColunaViga() {
             let estribo1 = parseFloat(document.getElementById('estribo1').value);
             let estribo2 = parseFloat(document.getElementById('estribo2').value);
@@ -146,9 +132,6 @@
 
             document.getElementById('resultadoColunaViga').innerText = 'Valor da Coluna/Viga: R$ ' + valorColunaViga.toFixed(2);
         }
-
-        // Carregar as bitolas e os valores ao carregar a página
-        window.onload = carregarBitolas;
     </script>
 </body>
 </html>
