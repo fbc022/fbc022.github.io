@@ -66,17 +66,7 @@
         </div>
         <div class="form-group">
             <label for="bitola_estribo_triangular">Bitola do estribo (mm):</label>
-            <select id="bitola_estribo_triangular">
-                <option value="1.32">4,2mm - R$ 1,32/m</option>
-                <option value="1.78">5mm - R$ 1,78/m</option>
-                <option value="2.47">6,3mm - R$ 2,47/m</option>
-                <option value="3.93">8mm - R$ 3,93/m</option>
-                <option value="5.46">10mm - R$ 5,46/m</option>
-                <option value="8.82">12,5mm - R$ 8,82/m</option>
-                <option value="14.38">16mm - R$ 14,38/m</option>
-                <option value="21.26">20mm - R$ 21,26/m</option>
-                <option value="36.43">25mm - R$ 36,43/m</option>
-            </select>
+            <select id="bitola_estribo_triangular"></select>
         </div>
         <div class="form-group">
             <label for="espaco_triangular">Espaçamento (cm):</label>
@@ -88,17 +78,7 @@
         </div>
         <div class="form-group">
             <label for="bitola_ferro_triangular">Bitola do ferro (mm):</label>
-            <select id="bitola_ferro_triangular">
-                <option value="1.32">4,2mm - R$ 1,32/m</option>
-                <option value="1.78">5mm - R$ 1,78/m</option>
-                <option value="2.47">6,3mm - R$ 2,47/m</option>
-                <option value="3.93">8mm - R$ 3,93/m</option>
-                <option value="5.46">10mm - R$ 5,46/m</option>
-                <option value="8.82">12,5mm - R$ 8,82/m</option>
-                <option value="14.38">16mm - R$ 14,38/m</option>
-                <option value="21.26">20mm - R$ 21,26/m</option>
-                <option value="36.43">25mm - R$ 36,43/m</option>
-            </select>
+            <select id="bitola_ferro_triangular"></select>
         </div>
         <div class="form-group">
             <label for="quantidade_ferr_triangular">Quantidade de ferro:</label>
@@ -110,6 +90,37 @@
     </div>
 
     <script>
+        function carregarBitolasTriangular() {
+            const bitolas = [
+                { key: 'preco_4_2', label: '4,2 mm' },
+                { key: 'preco_5', label: '5 mm' },
+                { key: 'preco_6_3', label: '6,3 mm' },
+                { key: 'preco_8', label: '8 mm' },
+                { key: 'preco_10', label: '10 mm' },
+                { key: 'preco_12_5', label: '12,5 mm' },
+                { key: 'preco_16', label: '16 mm' },
+                { key: 'preco_20', label: '20 mm' },
+                { key: 'preco_25', label: '25 mm' }
+            ];
+
+            const bitolaEstriboSelect = document.getElementById('bitola_estribo_triangular');
+            const bitolaFerroSelect = document.getElementById('bitola_ferro_triangular');
+            bitolaEstriboSelect.innerHTML = '';
+            bitolaFerroSelect.innerHTML = '';
+
+            bitolas.forEach(bitola => {
+                const preco = localStorage.getItem(bitola.key) || '0.00';
+                const optionEstribo = document.createElement('option');
+                optionEstribo.value = preco;
+                optionEstribo.textContent = `${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m`;
+
+                const optionFerro = optionEstribo.cloneNode(true);
+
+                bitolaEstriboSelect.appendChild(optionEstribo);
+                bitolaFerroSelect.appendChild(optionFerro);
+            });
+        }
+
         function calcularBrocaTriangular() {
             let estribo1 = parseFloat(document.getElementById('estribo1_triangular').value);
             let estribo2 = parseFloat(document.getElementById('estribo2_triangular').value);
@@ -120,23 +131,16 @@
             let bitola_ferro = parseFloat(document.getElementById('bitola_ferro_triangular').value);
             let quantidade_ferr = parseFloat(document.getElementById('quantidade_ferr_triangular').value);
 
-            // Cálculo do corte do estribo
             let corteEstribo = ((estribo1 + estribo2 + estribo3) / 100) + 0.10;
-
-            // Cálculo da quantidade de estribos
             let quantidadeEstribo = comprimento / espaco;
-
-            // Cálculo do valor do estribo
             let valorEstribo = (corteEstribo * quantidadeEstribo) * bitola_estribo;
-
-            // Cálculo do valor do ferro principal
             let valorFerroPrincipal = (comprimento * quantidade_ferr) * bitola_ferro;
-
-            // Cálculo do valor final da Broca Triangular
             let valorBrocaTriangular = valorFerroPrincipal + valorEstribo;
 
             document.getElementById('resultadoBrocaTriangular').innerText = 'Valor da Broca Triangular: R$ ' + valorBrocaTriangular.toFixed(2);
         }
+
+        window.onload = carregarBitolasTriangular;
     </script>
 </body>
 </html>
