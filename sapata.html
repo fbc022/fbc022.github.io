@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapata - Calculadora de Orçamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #00aaff;
+            border-radius: 10px;
+            background-color: #ffffff;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #00aaff;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0077cc;
+        }
+        .back-button {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sapata</h2>
+        <div class="form-group">
+            <label for="comprimento">Comprimento (m):</label>
+            <input type="number" id="comprimento">
+        </div>
+        <div class="form-group">
+            <label for="largura">Largura (m):</label>
+            <input type="number" id="largura">
+        </div>
+        <div class="form-group">
+            <label for="altura">Altura (m):</label>
+            <input type="number" id="altura">
+        </div>
+        <div class="form-group">
+            <label for="quantidade">Quantidade de ferro:</label>
+            <input type="number" id="quantidade">
+        </div>
+        <div class="form-group">
+            <label for="bitola">Bitola (mm):</label>
+            <select id="bitola">
+                <option value="1.32">4,2mm - R$ 1,32/m</option>
+                <option value="1.78">5mm - R$ 1,78/m</option>
+                <option value="2.47">6,3mm - R$ 2,47/m</option>
+                <option value="3.93">8mm - R$ 3,93/m</option>
+                <option value="5.46">10mm - R$ 5,46/m</option>
+                <option value="8.82">12,5mm - R$ 8,82/m</option>
+                <option value="14.38">16mm - R$ 14,38/m</option>
+                <option value="21.26">20mm - R$ 21,26/m</option>
+                <option value="36.43">25mm - R$ 36,43/m</option>
+            </select>
+        </div>
+        <button onclick="calcularSapata()">Calcular</button>
+        <button class="back-button" onclick="window.location.href='index.html'">Voltar ao Menu</button>
+        <div id="resultadoSapata" class="result"></div>
+    </div>
+
+    <script>
+        function calcularSapata() {
+            let comprimento = parseFloat(document.getElementById('comprimento').value);
+            let largura = parseFloat(document.getElementById('largura').value);
+            let altura = parseFloat(document.getElementById('altura').value);
+            let quantidade = parseFloat(document.getElementById('quantidade').value);
+            let bitola = parseFloat(document.getElementById('bitola').value);
+
+            let x = (comprimento + largura) / 2;
+            let y = (x + altura) * 2;
+            let z = (y / 100) + 0.10;
+            let valorSapata = z * quantidade * bitola;
+
+            document.getElementById('resultadoSapata').innerText = 'Valor da Sapata: R$ ' + valorSapata.toFixed(2);
+        }
+    </script>
+</body>
+</html>
+
