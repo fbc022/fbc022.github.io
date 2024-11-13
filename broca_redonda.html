@@ -75,32 +75,12 @@
 
         <div class="form-group">
             <label for="bitola_estribo">Bitola do estribo (mm):</label>
-            <select id="bitola_estribo">
-                <option value="1.32">4,2 mm - R$ 1,32/m</option>
-                <option value="1.78">5 mm - R$ 1,78/m</option>
-                <option value="2.47">6,3 mm - R$ 2,47/m</option>
-                <option value="3.93">8 mm - R$ 3,93/m</option>
-                <option value="5.46">10 mm - R$ 5,46/m</option>
-                <option value="8.82">12,5 mm - R$ 8,82/m</option>
-                <option value="14.38">16 mm - R$ 14,38/m</option>
-                <option value="21.26">20 mm - R$ 21,26/m</option>
-                <option value="36.43">25 mm - R$ 36,43/m</option>
-            </select>
+            <select id="bitola_estribo"></select>
         </div>
 
         <div class="form-group">
             <label for="bitola_ferro">Bitola do ferro (mm):</label>
-            <select id="bitola_ferro">
-                <option value="1.32">4,2 mm - R$ 1,32/m</option>
-                <option value="1.78">5 mm - R$ 1,78/m</option>
-                <option value="2.47">6,3 mm - R$ 2,47/m</option>
-                <option value="3.93">8 mm - R$ 3,93/m</option>
-                <option value="5.46">10 mm - R$ 5,46/m</option>
-                <option value="8.82">12,5 mm - R$ 8,82/m</option>
-                <option value="14.38">16 mm - R$ 14,38/m</option>
-                <option value="21.26">20 mm - R$ 21,26/m</option>
-                <option value="36.43">25 mm - R$ 36,43/m</option>
-            </select>
+            <select id="bitola_ferro"></select>
         </div>
 
         <button onclick="calcularBrocaRedonda()">Calcular</button>
@@ -110,8 +90,38 @@
     </div>
 
     <script>
+        function carregarBitolas() {
+            const bitolas = [
+                { key: 'preco_4_2', label: '4,2 mm' },
+                { key: 'preco_5', label: '5 mm' },
+                { key: 'preco_6_3', label: '6,3 mm' },
+                { key: 'preco_8', label: '8 mm' },
+                { key: 'preco_10', label: '10 mm' },
+                { key: 'preco_12_5', label: '12,5 mm' },
+                { key: 'preco_16', label: '16 mm' },
+                { key: 'preco_20', label: '20 mm' },
+                { key: 'preco_25', label: '25 mm' }
+            ];
+
+            const bitolaEstriboSelect = document.getElementById('bitola_estribo');
+            const bitolaFerroSelect = document.getElementById('bitola_ferro');
+            bitolaEstriboSelect.innerHTML = '';
+            bitolaFerroSelect.innerHTML = '';
+
+            bitolas.forEach(bitola => {
+                const preco = localStorage.getItem(bitola.key) || '0.00';
+                const optionEstribo = document.createElement('option');
+                optionEstribo.value = preco;
+                optionEstribo.textContent = `${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m`;
+
+                const optionFerro = optionEstribo.cloneNode(true);
+
+                bitolaEstriboSelect.appendChild(optionEstribo);
+                bitolaFerroSelect.appendChild(optionFerro);
+            });
+        }
+
         function calcularBrocaRedonda() {
-            // Obtendo os valores dos inputs
             const diametro = parseFloat(document.getElementById('diametro').value);
             const espacamento = parseFloat(document.getElementById('espaçamento').value);
             const comprimento = parseFloat(document.getElementById('comprimento').value);
@@ -119,26 +129,18 @@
             const bitolaEstribo = parseFloat(document.getElementById('bitola_estribo').value);
             const bitolaFerro = parseFloat(document.getElementById('bitola_ferro').value);
 
-            // Fórmula do corte do estribo: ((diametro * 3,15) + 10) / 100
             const corteEstribo = ((diametro * 3.15) + 10) / 100;
-
-            // Cálculo da quantidade de estribos
             const quantidadeEstribo = comprimento / espacamento;
-
-            // Cálculo do valor do estribo
             const valorEstribo = corteEstribo * quantidadeEstribo * bitolaEstribo;
-
-            // Cálculo do valor do ferro principal
             const valorFerroPrincipal = comprimento * quantidadeFerro * bitolaFerro;
-
-            // Cálculo do valor total da broca redonda
             const valorTotalBroca = valorFerroPrincipal + valorEstribo;
 
-            // Exibindo apenas o valor total da Broca Redonda
             document.getElementById('resultado').innerHTML = `
                 <strong>Valor total da Broca Redonda: R$ ${valorTotalBroca.toFixed(2)}</strong>
             `;
         }
+
+        window.onload = carregarBitolas;
     </script>
 </body>
 </html>
