@@ -103,6 +103,7 @@
     </div>
 
     <script>
+        // Função para verificar a senha
         function verificarSenha() {
             const senha = document.getElementById('senha').value;
             if (senha === "30126699") {
@@ -112,8 +113,8 @@
             }
         }
 
+        // Função para salvar as alterações no localStorage
         function salvarAlteracoes() {
-            // Obtendo os valores dos preços
             const preco4_2 = document.getElementById('preco_4_2').value;
             const preco5 = document.getElementById('preco_5').value;
             const preco6_3 = document.getElementById('preco_6_3').value;
@@ -124,21 +125,32 @@
             const preco20 = document.getElementById('preco_20').value;
             const preco25 = document.getElementById('preco_25').value;
 
-            // Aqui você pode armazenar os valores alterados em um lugar persistente,
-            // como localStorage, ou em um servidor. Neste exemplo, estamos apenas alertando.
-            
+            // Armazenando no localStorage
+            localStorage.setItem('preco_4_2', preco4_2);
+            localStorage.setItem('preco_5', preco5);
+            localStorage.setItem('preco_6_3', preco6_3);
+            localStorage.setItem('preco_8', preco8);
+            localStorage.setItem('preco_10', preco10);
+            localStorage.setItem('preco_12_5', preco12_5);
+            localStorage.setItem('preco_16', preco16);
+            localStorage.setItem('preco_20', preco20);
+            localStorage.setItem('preco_25', preco25);
+
             alert('Alterações salvas!');
-            console.log('Preços Atualizados:');
-            console.log(`4.2mm: R$ ${preco4_2}`);
-            console.log(`5mm: R$ ${preco5}`);
-            console.log(`6.3mm: R$ ${preco6_3}`);
-            console.log(`8mm: R$ ${preco8}`);
-            console.log(`10mm: R$ ${preco10}`);
-            console.log(`12.5mm: R$ ${preco12_5}`);
-            console.log(`16mm: R$ ${preco16}`);
-            console.log(`20mm: R$ ${preco20}`);
-            console.log(`25mm: R$ ${preco25}`);
         }
+
+        // Carregar valores do localStorage ao carregar a página
+        window.onload = function() {
+            document.getElementById('preco_4_2').value = localStorage.getItem('preco_4_2') || 1.32;
+            document.getElementById('preco_5').value = localStorage.getItem('preco_5') || 1.78;
+            document.getElementById('preco_6_3').value = localStorage.getItem('preco_6_3') || 2.47;
+            document.getElementById('preco_8').value = localStorage.getItem('preco_8') || 3.93;
+            document.getElementById('preco_10').value = localStorage.getItem('preco_10') || 5.46;
+            document.getElementById('preco_12_5').value = localStorage.getItem('preco_12_5') || 8.82;
+            document.getElementById('preco_16').value = localStorage.getItem('preco_16') || 14.38;
+            document.getElementById('preco_20').value = localStorage.getItem('preco_20') || 21.26;
+            document.getElementById('preco_25').value = localStorage.getItem('preco_25') || 36.43;
+        };
     </script>
 </body>
 </html>
