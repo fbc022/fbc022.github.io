@@ -102,7 +102,7 @@
                 const preco = localStorage.getItem(bitola.key) || '0.00'; // Pega do localStorage ou define 0.00 como padrão
                 const option = document.createElement('option');
                 option.value = preco;
-                option.textContent = ${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m;
+                option.textContent = `${bitola.label} - R$ ${parseFloat(preco).toFixed(2)}/m`;
                 bitolaSelect.appendChild(option);
             });
         }
@@ -115,6 +115,7 @@
             let quantidade = parseFloat(document.getElementById('quantidade').value);
             let bitola = parseFloat(document.getElementById('bitola').value);
 
+            // Fórmula de cálculo
             let x = (comprimento + largura) / 2;
             let y = (x + altura) * 2;
             let z = (y / 100) + 0.10;
