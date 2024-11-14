@@ -54,28 +54,60 @@
     <!-- Imagem logo abaixo dos botões -->
     <img src="https://raw.githubusercontent.com/fbc022/fbc022.github.io/refs/heads/main/rodape.jpg" alt="Imagem de rodapé" class="footer-image">
 
+    
     <script>
-        // Função para "atualizar" salvando uma data no localStorage
-        function atualizarDados() {
-            const dataAtualizacao = new Date().toLocaleString(); // Data e hora atual
-            localStorage.setItem('ultimaAtualizacao', dataAtualizacao); // Salva no localStorage
-            alert('Dados atualizados em ' + dataAtualizacao);
-        
+        // Valores padrão para as bitolas
+        const precosPadrao = {
+            preco_4_2: 1.32,
+            preco_5: 1.78,
+            preco_6_3: 2.47,
+            preco_8: 3.93,
+            preco_10: 5.46,
+            preco_12_5: 8.82,
+            preco_16: 14.38,
+            preco_20: 21.26,
+            preco_25: 36.43
+        };
+    
+    // Função para salvar as alterações no localStorage
+    function salvarAlteracoes() {
+            const preco4_2 = document.getElementById('preco_4_2').value;
+            const preco5 = document.getElementById('preco_5').value;
+            const preco6_3 = document.getElementById('preco_6_3').value;
+            const preco8 = document.getElementById('preco_8').value;
+            const preco10 = document.getElementById('preco_10').value;
+            const preco12_5 = document.getElementById('preco_12_5').value;
+            const preco16 = document.getElementById('preco_16').value;
+            const preco20 = document.getElementById('preco_20').value;
+            const preco25 = document.getElementById('preco_25').value;
+
+            // Armazenando no localStorage
+            localStorage.setItem('preco_4_2', preco4_2);
+            localStorage.setItem('preco_5', preco5);
+            localStorage.setItem('preco_6_3', preco6_3);
+            localStorage.setItem('preco_8', preco8);
+            localStorage.setItem('preco_10', preco10);
+            localStorage.setItem('preco_12_5', preco12_5);
+            localStorage.setItem('preco_16', preco16);
+            localStorage.setItem('preco_20', preco20);
+            localStorage.setItem('preco_25', preco25);
+
+            alert('Alterações salvas!');
         }
 
-// Carregar valores do localStorage ou valores padrão ao carregar a página
-window.onload = function atualizarDados() {
-    document.getElementById('preco_4_2').value = localStorage.getItem('preco_4_2') || precosPadrao.preco_4_2;
-    document.getElementById('preco_5').value = localStorage.getItem('preco_5') || precosPadrao.preco_5;
-    document.getElementById('preco_6_3').value = localStorage.getItem('preco_6_3') || precosPadrao.preco_6_3;
-    document.getElementById('preco_8').value = localStorage.getItem('preco_8') || precosPadrao.preco_8;
-    document.getElementById('preco_10').value = localStorage.getItem('preco_10') || precosPadrao.preco_10;
-    document.getElementById('preco_12_5').value = localStorage.getItem('preco_12_5') || precosPadrao.preco_12_5;
-    document.getElementById('preco_16').value = localStorage.getItem('preco_16') || precosPadrao.preco_16;
-    document.getElementById('preco_20').value = localStorage.getItem('preco_20') || precosPadrao.preco_20;
-    document.getElementById('preco_25').value = localStorage.getItem('preco_25') || precosPadrao.preco_25;
-
+        // Carregar valores do localStorage ou valores padrão ao carregar a página
+        window.onload = function() {
+            document.getElementById('preco_4_2').value = localStorage.getItem('preco_4_2') || precosPadrao.preco_4_2;
+            document.getElementById('preco_5').value = localStorage.getItem('preco_5') || precosPadrao.preco_5;
+            document.getElementById('preco_6_3').value = localStorage.getItem('preco_6_3') || precosPadrao.preco_6_3;
+            document.getElementById('preco_8').value = localStorage.getItem('preco_8') || precosPadrao.preco_8;
+            document.getElementById('preco_10').value = localStorage.getItem('preco_10') || precosPadrao.preco_10;
+            document.getElementById('preco_12_5').value = localStorage.getItem('preco_12_5') || precosPadrao.preco_12_5;
+            document.getElementById('preco_16').value = localStorage.getItem('preco_16') || precosPadrao.preco_16;
+            document.getElementById('preco_20').value = localStorage.getItem('preco_20') || precosPadrao.preco_20;
+            document.getElementById('preco_25').value = localStorage.getItem('preco_25') || precosPadrao.preco_25;
         };
+
     </script>
 </body>
 </html>
