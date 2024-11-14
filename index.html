@@ -64,7 +64,7 @@
         }
 
 // Carregar valores do localStorage ou valores padrão ao carregar a página
-window.onload = function() {
+window.onload = function atualizarDados() {
     document.getElementById('preco_4_2').value = localStorage.getItem('preco_4_2') || precosPadrao.preco_4_2;
     document.getElementById('preco_5').value = localStorage.getItem('preco_5') || precosPadrao.preco_5;
     document.getElementById('preco_6_3').value = localStorage.getItem('preco_6_3') || precosPadrao.preco_6_3;
