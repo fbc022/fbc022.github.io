@@ -5,8 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configurações - Calculadora de Orçamento</title>
     <style>
-        /* Estilos (mantidos os mesmos) */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #00aaff;
+            border-radius: 10px;
+            background-color: #ffffff;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #00aaff;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0077cc;
+        }
+        .back-button {
+            background-color: #f44336;
+        }
     </style>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
     <div class="container">
@@ -17,7 +60,7 @@
         </div>
         <button onclick="verificarSenha()">Entrar</button>
         <div id="configuracaoForm" style="display:none;">
-            <!-- Campos de entrada para preços -->
+            <!-- Preços das bitolas -->
             <div class="form-group">
                 <label for="preco_4_2">Preço 4,2mm:</label>
                 <input type="number" id="preco_4_2">
@@ -54,31 +97,29 @@
                 <label for="preco_25">Preço 25mm:</label>
                 <input type="number" id="preco_25">
             </div>
+
             <button onclick="salvarAlteracoes()">Salvar Alterações</button>
+            <!-- Botão de Voltar ao Menu -->
             <button class="back-button" onclick="window.location.href='index.html'">Voltar ao Menu</button>
         </div>
     </div>
 
     <script>
-        const sheetId = '1hb_Z9EYEfxnZcRXcuNXm-_1C3CpnLxkWQlWhsw6rIag';
-        const apiKey = 'AIzaSyB2kNxIpwIwO1Zd1m5GT4YXT64xt4othks';
+        const CLIENT_ID = '858457142238-k5rrdpshd1thukvbgp8261hpq3v2v2np.apps.googleusercontent.com';
+        const API_KEY = 'AIzaSyB2kNxIpwIwO1Zd1m5GT4YXT64xt4othks';
+        const SPREADSHEET_ID = '1hb_Z9EYEfxnZcRXcuNXm-_1C3CpnLxkWQlWhsw6rIag'; // ID da planilha
 
-        // Função para carregar dados da planilha
-        async function carregarDados() {
-            try {
-                const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A1:B10?key=${apiKey}`);
-                const data = await response.json();
+        const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+        const SCOPES = "https://www.googleapis.com/auth/spreadsheets";
 
-                // Assumindo que a estrutura seja:
-                // Coluna A - Nome (preco_4_2, preco_5, etc.)
-                // Coluna B - Valor correspondente
-                data.values.forEach(row => {
-                    const campo = document.getElementById(row[0]);
-                    if (campo) campo.value = row[1];
-                });
-            } catch (error) {
-                console.error("Erro ao carregar dados da planilha:", error);
-            }
+        // Carregar a API do Google
+        function loadClient() {
+            gapi.client.setApiKey(API_KEY);
+            return gapi.client.load(DISCOVERY_DOCS).then(function() {
+                console.log("API client loaded for Sheets API");
+            }, function(error) {
+                console.error("Error loading API client", error);
+            });
         }
 
         // Função para verificar a senha
@@ -86,33 +127,66 @@
             const senha = document.getElementById('senha').value;
             if (senha === "30126699") {
                 document.getElementById('configuracaoForm').style.display = "block";
-                carregarDados(); // Carregar dados ao entrar
+                gapi.auth2.getAuthInstance().signIn().then(function() {
+                    alert("Login bem-sucedido");
+                    loadClient();
+                }, function(error) {
+                    alert("Erro na autenticação");
+                });
             } else {
                 alert('Senha incorreta');
             }
         }
 
-        // Função para salvar as alterações na planilha
-        async function salvarAlteracoes() {
-            const valores = {
-                'preco_4_2': document.getElementById('preco_4_2').value,
-                'preco_5': document.getElementById('preco_5').value,
-                'preco_6_3': document.getElementById('preco_6_3').value,
-                'preco_8': document.getElementById('preco_8').value,
-                'preco_10': document.getElementById('preco_10').value,
-                'preco_12_5': document.getElementById('preco_12_5').value,
-                'preco_16': document.getElementById('preco_16').value,
-                'preco_20': document.getElementById('preco_20').value,
-                'preco_25': document.getElementById('preco_25').value
+        // Função para autenticar com o Google
+        function authenticate() {
+            return gapi.auth2.getAuthInstance().signIn();
+        }
+
+        // Função para acessar a planilha e salvar as alterações
+        function salvarAlteracoes() {
+            const preco4_2 = document.getElementById('preco_4_2').value;
+            const preco5 = document.getElementById('preco_5').value;
+            const preco6_3 = document.getElementById('preco_6_3').value;
+            const preco8 = document.getElementById('preco_8').value;
+            const preco10 = document.getElementById('preco_10').value;
+            const preco12_5 = document.getElementById('preco_12_5').value;
+            const preco16 = document.getElementById('preco_16').value;
+            const preco20 = document.getElementById('preco_20').value;
+            const preco25 = document.getElementById('preco_25').value;
+
+            const values = [
+                [preco4_2, preco5, preco6_3, preco8, preco10, preco12_5, preco16, preco20, preco25]
+            ];
+
+            const body = {
+                values: values
             };
 
-            const data = {
-                values: [
-                    ['preco_4_2', valores.preco_4_2],
-                    ['preco_5', valores.preco_5],
-                    ['preco_6_3', valores.preco_6_3],
-                    ['preco_8', valores.preco_8],
-                    ['preco_10', valores.preco_10],
-                    ['preco_12_5', valores.preco_12_5],
-                    ['preco_16', valores.preco_16],
-                    ['preco_20', va
+            // Atualizar a planilha
+            gapi.client.sheets.spreadsheets.values.update({
+                spreadsheetId: SPREADSHEET_ID,
+                range: "Sheet1!B2:J2", // Altere para a célula que deseja atualizar
+                valueInputOption: "RAW",
+                resource: body
+            }).then(function(response) {
+                console.log(response);
+                alert('Alterações salvas!');
+            }, function(error) {
+                console.error('Erro ao salvar as alterações', error);
+            });
+        }
+
+        // Carregar a biblioteca de autenticação do Google
+        function start() {
+            gapi.load("client:auth2", function() {
+                gapi.auth2.init({
+                    client_id: CLIENT_ID
+                });
+            });
+        }
+
+        window.onload = start;
+    </script>
+</body>
+</html>
