@@ -1,21 +1,108 @@
-const apiKey = 'AIzaSyB2kNxIpwIwO1Zd1m5GT4YXT64xt4othks';
-const spreadsheetId = '1hb_Z9EYEfxnZcRXcuNXm-_1C3CpnLxkWQlWhsw6rIag';
-const range = 'Precos!A2:B10'; // Define o intervalo da planilha que queremos acessar
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Calculadora de Orçamento</title>
+    <style>
+        /* Estilos (mantidos os mesmos) */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Configurações - Alterar Preços das Bitolas</h2>
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha">
+        </div>
+        <button onclick="verificarSenha()">Entrar</button>
+        <div id="configuracaoForm" style="display:none;">
+            <!-- Campos de entrada para preços -->
+            <div class="form-group">
+                <label for="preco_4_2">Preço 4,2mm:</label>
+                <input type="number" id="preco_4_2">
+            </div>
+            <div class="form-group">
+                <label for="preco_5">Preço 5mm:</label>
+                <input type="number" id="preco_5">
+            </div>
+            <div class="form-group">
+                <label for="preco_6_3">Preço 6,3mm:</label>
+                <input type="number" id="preco_6_3">
+            </div>
+            <div class="form-group">
+                <label for="preco_8">Preço 8mm:</label>
+                <input type="number" id="preco_8">
+            </div>
+            <div class="form-group">
+                <label for="preco_10">Preço 10mm:</label>
+                <input type="number" id="preco_10">
+            </div>
+            <div class="form-group">
+                <label for="preco_12_5">Preço 12,5mm:</label>
+                <input type="number" id="preco_12_5">
+            </div>
+            <div class="form-group">
+                <label for="preco_16">Preço 16mm:</label>
+                <input type="number" id="preco_16">
+            </div>
+            <div class="form-group">
+                <label for="preco_20">Preço 20mm:</label>
+                <input type="number" id="preco_20">
+            </div>
+            <div class="form-group">
+                <label for="preco_25">Preço 25mm:</label>
+                <input type="number" id="preco_25">
+            </div>
+            <button onclick="salvarAlteracoes()">Salvar Alterações</button>
+            <button class="back-button" onclick="window.location.href='index.html'">Voltar ao Menu</button>
+        </div>
+    </div>
 
-function carregarPrecos() {
-    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`)
-        .then(response => response.json())
-        .then(data => {
-            const valores = data.values;
-            valores.forEach(row => {
-                const bitola = row[0];
-                const preco = row[1];
-                document.getElementById(`preco_${bitola.replace('.', '_')}`).value = preco;
+    <script>
+        const sheetId = '1hb_Z9EYEfxnZcRXcuNXm-_1C3CpnLxkWQlWhsw6rIag';
+        const apiKey = 'AIzaSyB2kNxIpwIwO1Zd1m5GT4YXT64xt4othks';
+
+        // Função para carregar dados da planilha
+        async function carregarDados() {
+            try {
+                const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A1:B10?key=${apiKey}`);
+                const data = await response.json();
+
+                // Assumindo que a estrutura seja:
+                // Coluna A - Nome (preco_4_2, preco_5, etc.)
+                // Coluna B - Valor correspondente
+                data.values.forEach(row => {
+                    const campo = document.getElementById(row[0]);
+                    if (campo) campo.value = row[1];
+                });
+            } catch (error) {
+                console.error("Erro ao carregar dados da planilha:", error);
+            }
+        }
+
+        // Função para verificar a senha
+        function verificarSenha() {
+            const senha = document.getElementById('senha').value;
+            if (senha === "30126699") {
+                document.getElementById('configuracaoForm').style.display = "block";
+                carregarDados(); // Carregar dados ao entrar
+            } else {
+                alert('Senha incorreta');
+            }
+        }
+
+        // Função para salvar as alterações no localStorage
+        function salvarAlteracoes() {
+            const campos = ['preco_4_2', 'preco_5', 'preco_6_3', 'preco_8', 'preco_10', 'preco_12_5', 'preco_16', 'preco_20', 'preco_25'];
+            campos.forEach(id => {
+                const valor = document.getElementById(id).value;
+                localStorage.setItem(id, valor);
             });
-        })
-        .catch(error => console.error('Erro ao carregar os preços:', error));
-}
+            alert('Alterações salvas!');
+        }
 
-window.onload = function() {
-    carregarPrecos(); // Chama a função para carregar os preços da planilha
-};
+        window.onload = carregarDados; // Carregar dados ao carregar a página
+    </script>
+</body>
+</html>
