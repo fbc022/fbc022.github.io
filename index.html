@@ -3,181 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurações - Calculadora de Orçamento</title>
+    <title>Menu Principal - Calculadora de Orçamento</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #f0f8ff;
+            color: #000;
         }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 2px solid #00aaff;
-            border-radius: 10px;
-            background-color: #ffffff;
+        .menu {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
+        .menu button {
+            margin: 5px;
             padding: 10px 20px;
-            margin-top: 10px;
-            background-color: #00aaff;
+            background-color: #0099cc;
+            color: white;
             border: none;
-            color: #fff;
             border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
+        .menu button:hover {
             background-color: #0077cc;
         }
-        .back-button {
-            background-color: #f44336;
+        .footer-image {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Configurações - Alterar Preços das Bitolas</h2>
-        <div class="form-group">
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha">
-        </div>
-        <button onclick="verificarSenha()">Entrar</button>
-        <div id="configuracaoForm" style="display:none;">
-            <!-- Preços das bitolas -->
-            <div class="form-group">
-                <label for="preco_4_2">Preço 4,2mm:</label>
-                <input type="number" id="preco_4_2">
-            </div>
-            <div class="form-group">
-                <label for="preco_5">Preço 5mm:</label>
-                <input type="number" id="preco_5">
-            </div>
-            <div class="form-group">
-                <label for="preco_6_3">Preço 6,3mm:</label>
-                <input type="number" id="preco_6_3">
-            </div>
-            <div class="form-group">
-                <label for="preco_8">Preço 8mm:</label>
-                <input type="number" id="preco_8">
-            </div>
-            <div class="form-group">
-                <label for="preco_10">Preço 10mm:</label>
-                <input type="number" id="preco_10">
-            </div>
-            <div class="form-group">
-                <label for="preco_12_5">Preço 12,5mm:</label>
-                <input type="number" id="preco_12_5">
-            </div>
-            <div class="form-group">
-                <label for="preco_16">Preço 16mm:</label>
-                <input type="number" id="preco_16">
-            </div>
-            <div class="form-group">
-                <label for="preco_20">Preço 20mm:</label>
-                <input type="number" id="preco_20">
-            </div>
-            <div class="form-group">
-                <label for="preco_25">Preço 25mm:</label>
-                <input type="number" id="preco_25">
-            </div>
-
-            <button onclick="salvarAlteracoes()">Salvar Alterações</button>
-            <button onclick="atualizarDados()">Atualizar</button> <!-- Botão de Atualizar -->
-            <!-- Botão de Voltar ao Menu -->
-            <button class="back-button" onclick="window.location.href='index.html'">Voltar ao Menu</button>
-        </div>
+    <h1>Menu Principal</h1>
+    <div class="menu">
+        <button onclick="window.location.href='sapata.html'">Sapata</button>
+        <button onclick="window.location.href='sapata_aberta.html'">Sapata Aberta</button>
+        <button onclick="window.location.href='coluna_viga.html'">Coluna/Viga</button>
+        <button onclick="window.location.href='broca_redonda.html'">Broca Redonda</button>
+        <button onclick="window.location.href='broca_triangular.html'">Broca Triangular</button>
+        <button onclick="window.location.href='configuracoes.html'">Configurações</button>
     </div>
-
-    <script>
-        // Valores padrão para as bitolas
-        const precosPadrao = {
-            preco_4_2: 1.32,
-            preco_5: 1.78,
-            preco_6_3: 2.47,
-            preco_8: 3.93,
-            preco_10: 5.46,
-            preco_12_5: 8.82,
-            preco_16: 14.38,
-            preco_20: 21.26,
-            preco_25: 36.43
-        };
-
-        // Função para verificar a senha
-        function verificarSenha() {
-            const senha = document.getElementById('senha').value;
-            if (senha === "30126699") {
-                document.getElementById('configuracaoForm').style.display = "block";
-            } else {
-                alert('Senha incorreta');
-            }
-        }
-
-        // Função para salvar as alterações no localStorage
-        function salvarAlteracoes() {
-            const preco4_2 = document.getElementById('preco_4_2').value;
-            const preco5 = document.getElementById('preco_5').value;
-            const preco6_3 = document.getElementById('preco_6_3').value;
-            const preco8 = document.getElementById('preco_8').value;
-            const preco10 = document.getElementById('preco_10').value;
-            const preco12_5 = document.getElementById('preco_12_5').value;
-            const preco16 = document.getElementById('preco_16').value;
-            const preco20 = document.getElementById('preco_20').value;
-            const preco25 = document.getElementById('preco_25').value;
-
-            // Armazenando no localStorage
-            localStorage.setItem('preco_4_2', preco4_2);
-            localStorage.setItem('preco_5', preco5);
-            localStorage.setItem('preco_6_3', preco6_3);
-            localStorage.setItem('preco_8', preco8);
-            localStorage.setItem('preco_10', preco10);
-            localStorage.setItem('preco_12_5', preco12_5);
-            localStorage.setItem('preco_16', preco16);
-            localStorage.setItem('preco_20', preco20);
-            localStorage.setItem('preco_25', preco25);
-
-            alert('Alterações salvas!');
-        }
-
-        // Função para atualizar os valores das bitolas
-        function atualizarDados() {
-            document.getElementById('preco_4_2').value = localStorage.getItem('preco_4_2') || precosPadrao.preco_4_2;
-            document.getElementById('preco_5').value = localStorage.getItem('preco_5') || precosPadrao.preco_5;
-            document.getElementById('preco_6_3').value = localStorage.getItem('preco_6_3') || precosPadrao.preco_6_3;
-            document.getElementById('preco_8').value = localStorage.getItem('preco_8') || precosPadrao.preco_8;
-            document.getElementById('preco_10').value = localStorage.getItem('preco_10') || precosPadrao.preco_10;
-            document.getElementById('preco_12_5').value = localStorage.getItem('preco_12_5') || precosPadrao.preco_12_5;
-            document.getElementById('preco_16').value = localStorage.getItem('preco_16') || precosPadrao.preco_16;
-            document.getElementById('preco_20').value = localStorage.getItem('preco_20') || precosPadrao.preco_20;
-            document.getElementById('preco_25').value = localStorage.getItem('preco_25') || precosPadrao.preco_25;
-        }
-
-        // Carregar valores do localStorage ou valores padrão ao carregar a página
-        window.onload = function() {
-            document.getElementById('preco_4_2').value = localStorage.getItem('preco_4_2') || precosPadrao.preco_4_2;
-            document.getElementById('preco_5').value = localStorage.getItem('preco_5') || precosPadrao.preco_5;
-            document.getElementById('preco_6_3').value = localStorage.getItem('preco_6_3') || precosPadrao.preco_6_3;
-            document.getElementById('preco_8').value = localStorage.getItem('preco_8') || precosPadrao.preco_8;
-            document.getElementById('preco_10').value = localStorage.getItem('preco_10') || precosPadrao.preco_10;
-            document.getElementById('preco_12_5').value = localStorage.getItem('preco_12_5') || precosPadrao.preco_12_5;
-            document.getElementById('preco_16').value = localStorage.getItem('preco_16') || precosPadrao.preco_16;
-            document.getElementById('preco_20').value = localStorage.getItem('preco_20') || precosPadrao.preco_20;
-            document.getElementById('preco_25').value = localStorage.getItem('preco_25') || precosPadrao.preco_25;
-        };
-    </script>
+    <!-- Imagem logo abaixo dos botões -->
+    <img src="https://raw.githubusercontent.com/fbc022/fbc022.github.io/refs/heads/main/rodape.jpg" alt="Imagem de rodapé" class="footer-image">
 </body>
 </html>
