@@ -3,33 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Orçamento</title>
+    <title>Menu Principal - Calculadora de Orçamento</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #f0f8ff;
+            color: #000;
         }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 2px solid #00aaff;
-            border-radius: 10px;
-            background-color: #ffffff;
+        .menu {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
-        button {
+        .menu button {
+            margin: 5px;
             padding: 10px 20px;
-            margin-top: 10px;
-            background-color: #00aaff;
+            background-color: #0099cc;
+            color: white;
             border: none;
-            color: #fff;
             border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
+        .menu button:hover {
             background-color: #0077cc;
+        }
+        .footer-image {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
         }
         .precos {
             margin-top: 20px;
@@ -42,26 +44,34 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Calculadora de Orçamento</h2>
-        <button onclick="window.location.href='configuracoes.html'">Ir para Configurações</button>
-        <br><br>
-
-        <!-- Exibição dos preços -->
-        <div class="precos" id="precos">
-            <div class="preco-item">4,2mm: R$ <span id="preco_4_2">1.32</span></div>
-            <div class="preco-item">5mm: R$ <span id="preco_5">1.78</span></div>
-            <div class="preco-item">6,3mm: R$ <span id="preco_6_3">2.47</span></div>
-            <div class="preco-item">8mm: R$ <span id="preco_8">3.93</span></div>
-            <div class="preco-item">10mm: R$ <span id="preco_10">5.46</span></div>
-            <div class="preco-item">12,5mm: R$ <span id="preco_12_5">8.82</span></div>
-            <div class="preco-item">16mm: R$ <span id="preco_16">14.38</span></div>
-            <div class="preco-item">20mm: R$ <span id="preco_20">21.26</span></div>
-            <div class="preco-item">25mm: R$ <span id="preco_25">36.43</span></div>
-        </div>
-
-        <button onclick="atualizarPrecos()">Atualizar Preços</button> <!-- Botão de Atualizar -->
+    <h1>Menu Principal</h1>
+    <div class="menu">
+        <button onclick="window.location.href='sapata.html'">Sapata</button>
+        <button onclick="window.location.href='sapata_aberta.html'">Sapata Aberta</button>
+        <button onclick="window.location.href='coluna_viga.html'">Coluna/Viga</button>
+        <button onclick="window.location.href='broca_redonda.html'">Broca Redonda</button>
+        <button onclick="window.location.href='broca_triangular.html'">Broca Triangular</button>
+        <button onclick="window.location.href='configuracoes.html'">Configurações</button>
     </div>
+    
+    <!-- Exibição dos preços -->
+    <div class="precos" id="precos">
+        <div class="preco-item">4,2mm: R$ <span id="preco_4_2">1.32</span></div>
+        <div class="preco-item">5mm: R$ <span id="preco_5">1.78</span></div>
+        <div class="preco-item">6,3mm: R$ <span id="preco_6_3">2.47</span></div>
+        <div class="preco-item">8mm: R$ <span id="preco_8">3.93</span></div>
+        <div class="preco-item">10mm: R$ <span id="preco_10">5.46</span></div>
+        <div class="preco-item">12,5mm: R$ <span id="preco_12_5">8.82</span></div>
+        <div class="preco-item">16mm: R$ <span id="preco_16">14.38</span></div>
+        <div class="preco-item">20mm: R$ <span id="preco_20">21.26</span></div>
+        <div class="preco-item">25mm: R$ <span id="preco_25">36.43</span></div>
+    </div>
+
+    <!-- Botão Atualizar Preços -->
+    <button onclick="atualizarPrecos()">Atualizar Preços</button>
+
+    <!-- Imagem logo abaixo dos botões -->
+    <img src="https://raw.githubusercontent.com/fbc022/fbc022.github.io/refs/heads/main/rodape.jpg" alt="Imagem de rodapé" class="footer-image">
 
     <script>
         // Função para atualizar os preços na página index
