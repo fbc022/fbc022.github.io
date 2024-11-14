@@ -60,14 +60,21 @@
             const dataAtualizacao = new Date().toLocaleString(); // Data e hora atual
             localStorage.setItem('ultimaAtualizacao', dataAtualizacao); // Salva no localStorage
             alert('Dados atualizados em ' + dataAtualizacao);
+        
         }
 
-        // Exibir data de última atualização ao carregar a página
-        window.onload = function() {
-            const ultimaAtualizacao = localStorage.getItem('ultimaAtualizacao');
-            if (ultimaAtualizacao) {
-                alert('Última atualização foi em: ' + ultimaAtualizacao);
-            }
+// Carregar valores do localStorage ou valores padrão ao carregar a página
+window.onload = function() {
+    document.getElementById('preco_4_2').value = localStorage.getItem('preco_4_2') || precosPadrao.preco_4_2;
+    document.getElementById('preco_5').value = localStorage.getItem('preco_5') || precosPadrao.preco_5;
+    document.getElementById('preco_6_3').value = localStorage.getItem('preco_6_3') || precosPadrao.preco_6_3;
+    document.getElementById('preco_8').value = localStorage.getItem('preco_8') || precosPadrao.preco_8;
+    document.getElementById('preco_10').value = localStorage.getItem('preco_10') || precosPadrao.preco_10;
+    document.getElementById('preco_12_5').value = localStorage.getItem('preco_12_5') || precosPadrao.preco_12_5;
+    document.getElementById('preco_16').value = localStorage.getItem('preco_16') || precosPadrao.preco_16;
+    document.getElementById('preco_20').value = localStorage.getItem('preco_20') || precosPadrao.preco_20;
+    document.getElementById('preco_25').value = localStorage.getItem('preco_25') || precosPadrao.preco_25;
+
         };
     </script>
 </body>
