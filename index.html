@@ -33,14 +33,6 @@
             max-width: 100%;
             height: auto;
         }
-        .precos {
-            margin-top: 20px;
-            font-size: 18px;
-            line-height: 1.6;
-        }
-        .preco-item {
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
@@ -53,50 +45,7 @@
         <button onclick="window.location.href='broca_triangular.html'">Broca Triangular</button>
         <button onclick="window.location.href='configuracoes.html'">Configurações</button>
     </div>
-    
-    <!-- Exibição dos preços -->
-    <div class="precos" id="precos">
-        <div class="preco-item">4,2mm: R$ <span id="preco_4_2">1.32</span></div>
-        <div class="preco-item">5mm: R$ <span id="preco_5">1.78</span></div>
-        <div class="preco-item">6,3mm: R$ <span id="preco_6_3">2.47</span></div>
-        <div class="preco-item">8mm: R$ <span id="preco_8">3.93</span></div>
-        <div class="preco-item">10mm: R$ <span id="preco_10">5.46</span></div>
-        <div class="preco-item">12,5mm: R$ <span id="preco_12_5">8.82</span></div>
-        <div class="preco-item">16mm: R$ <span id="preco_16">14.38</span></div>
-        <div class="preco-item">20mm: R$ <span id="preco_20">21.26</span></div>
-        <div class="preco-item">25mm: R$ <span id="preco_25">36.43</span></div>
-    </div>
-
-    <!-- Botão Atualizar Preços -->
-    <button onclick="atualizarPrecos()">Atualizar Preços</button>
-
     <!-- Imagem logo abaixo dos botões -->
     <img src="https://raw.githubusercontent.com/fbc022/fbc022.github.io/refs/heads/main/rodape.jpg" alt="Imagem de rodapé" class="footer-image">
-
-    <script>
-        // Função para atualizar os preços na página index
-        function atualizarPrecos() {
-            const preco4_2 = localStorage.getItem('preco_4_2') || '1.32';
-            const preco5 = localStorage.getItem('preco_5') || '1.78';
-            const preco6_3 = localStorage.getItem('preco_6_3') || '2.47';
-            const preco8 = localStorage.getItem('preco_8') || '3.93';
-            const preco10 = localStorage.getItem('preco_10') || '5.46';
-            const preco12_5 = localStorage.getItem('preco_12_5') || '8.82';
-            const preco16 = localStorage.getItem('preco_16') || '14.38';
-            const preco20 = localStorage.getItem('preco_20') || '21.26';
-            const preco25 = localStorage.getItem('preco_25') || '36.43';
-
-            // Atualizando os valores na página
-            document.getElementById('preco_4_2').innerText = preco4_2;
-            document.getElementById('preco_5').innerText = preco5;
-            document.getElementById('preco_6_3').innerText = preco6_3;
-            document.getElementById('preco_8').innerText = preco8;
-            document.getElementById('preco_10').innerText = preco10;
-            document.getElementById('preco_12_5').innerText = preco12_5;
-            document.getElementById('preco_16').innerText = preco16;
-            document.getElementById('preco_20').innerText = preco20;
-            document.getElementById('preco_25').innerText = preco25;
-        }
-    </script>
 </body>
 </html>
