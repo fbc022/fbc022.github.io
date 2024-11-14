@@ -92,17 +92,27 @@
             }
         }
 
-        // Função para salvar as alterações no localStorage
-        function salvarAlteracoes() {
-            const campos = ['preco_4_2', 'preco_5', 'preco_6_3', 'preco_8', 'preco_10', 'preco_12_5', 'preco_16', 'preco_20', 'preco_25'];
-            campos.forEach(id => {
-                const valor = document.getElementById(id).value;
-                localStorage.setItem(id, valor);
-            });
-            alert('Alterações salvas!');
-        }
+        // Função para salvar as alterações na planilha
+        async function salvarAlteracoes() {
+            const valores = {
+                'preco_4_2': document.getElementById('preco_4_2').value,
+                'preco_5': document.getElementById('preco_5').value,
+                'preco_6_3': document.getElementById('preco_6_3').value,
+                'preco_8': document.getElementById('preco_8').value,
+                'preco_10': document.getElementById('preco_10').value,
+                'preco_12_5': document.getElementById('preco_12_5').value,
+                'preco_16': document.getElementById('preco_16').value,
+                'preco_20': document.getElementById('preco_20').value,
+                'preco_25': document.getElementById('preco_25').value
+            };
 
-        window.onload = carregarDados; // Carregar dados ao carregar a página
-    </script>
-</body>
-</html>
+            const data = {
+                values: [
+                    ['preco_4_2', valores.preco_4_2],
+                    ['preco_5', valores.preco_5],
+                    ['preco_6_3', valores.preco_6_3],
+                    ['preco_8', valores.preco_8],
+                    ['preco_10', valores.preco_10],
+                    ['preco_12_5', valores.preco_12_5],
+                    ['preco_16', valores.preco_16],
+                    ['preco_20', va
