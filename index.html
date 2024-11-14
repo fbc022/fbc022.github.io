@@ -3,49 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Principal - Calculadora de Orçamento</title>
+    <title>Calculadora de Orçamento</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #f0f8ff;
-            color: #000;
         }
-        .menu {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #00aaff;
+            border-radius: 10px;
+            background-color: #ffffff;
         }
-        .menu button {
-            margin: 5px;
+        button {
             padding: 10px 20px;
-            background-color: #0099cc;
-            color: white;
+            margin-top: 10px;
+            background-color: #00aaff;
             border: none;
+            color: #fff;
             border-radius: 5px;
             cursor: pointer;
         }
-        .menu button:hover {
+        button:hover {
             background-color: #0077cc;
-        }
-        .footer-image {
-            margin-top: 20px;
-            max-width: 100%;
-            height: auto;
         }
     </style>
 </head>
 <body>
-    <h1>Menu Principal</h1>
-    <div class="menu">
-        <button onclick="window.location.href='sapata.html'">Sapata</button>
-        <button onclick="window.location.href='sapata_aberta.html'">Sapata Aberta</button>
-        <button onclick="window.location.href='coluna_viga.html'">Coluna/Viga</button>
-        <button onclick="window.location.href='broca_redonda.html'">Broca Redonda</button>
-        <button onclick="window.location.href='broca_triangular.html'">Broca Triangular</button>
-        <button onclick="window.location.href='configuracoes.html'">Configurações</button>
+    <div class="container">
+        <h2>Calculadora de Orçamento</h2>
+        <button onclick="window.location.href='configuracoes.html'">Ir para Configurações</button>
+        <br><br>
+        <button onclick="atualizarPrecos()">Atualizar Preços</button> <!-- Botão de Atualizar -->
     </div>
-    <!-- Imagem logo abaixo dos botões -->
-    <img src="https://raw.githubusercontent.com/fbc022/fbc022.github.io/refs/heads/main/rodape.jpg" alt="Imagem de rodapé" class="footer-image">
+
+    <script>
+        // Função para atualizar os preços na página index
+        function atualizarPrecos() {
+            const preco4_2 = localStorage.getItem('preco_4_2') || '1.32';
+            const preco5 = localStorage.getItem('preco_5') || '1.78';
+            const preco6_3 = localStorage.getItem('preco_6_3') || '2.47';
+            const preco8 = localStorage.getItem('preco_8') || '3.93';
+            const preco10 = localStorage.getItem('preco_10') || '5.46';
+            const preco12_5 = localStorage.getItem('preco_12_5') || '8.82';
+            const preco16 = localStorage.getItem('preco_16') || '14.38';
+            const preco20 = localStorage.getItem('preco_20') || '21.26';
+            const preco25 = localStorage.getItem('preco_25') || '36.43';
+
+            alert(`Preços Atualizados:
+                4.2mm: R$ ${preco4_2}
+                5mm: R$ ${preco5}
+                6.3mm: R$ ${preco6_3}
+                8mm: R$ ${preco8}
+                10mm: R$ ${preco10}
+                12.5mm: R$ ${preco12_5}
+                16mm: R$ ${preco16}
+                20mm: R$ ${preco20}
+                25mm: R$ ${preco25}`);
+        }
+    </script>
 </body>
 </html>
