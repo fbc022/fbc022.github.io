@@ -46,7 +46,7 @@
         <button onclick="window.location.href='broca_redonda.html'">Broca Redonda</button>
         <button onclick="window.location.href='broca_triangular.html'">Broca Triangular</button>
         <button onclick="window.location.href='configuracoes.html'">Configurações</button>
-        <button onclick="atualizarDados()">Atualizar</button>
+        <button onclick="atualizarDados()"=salvarAlteracoes()=>Atualizar</button>
         <h6>Caso os valores tenham sido alterados ou mostrem "R$00.00",
         <br>
         clique no botão "ATUALIZAR" logo acima<h6>
@@ -96,7 +96,7 @@
         }
 
         // Carregar valores do localStorage ou valores padrão ao carregar a página
-        window.onload = function() {
+        window.onload = functionCarregar() {
             document.getElementById('preco_4_2').value = localStorage.getItem('preco_4_2') || precosPadrao.preco_4_2;
             document.getElementById('preco_5').value = localStorage.getItem('preco_5') || precosPadrao.preco_5;
             document.getElementById('preco_6_3').value = localStorage.getItem('preco_6_3') || precosPadrao.preco_6_3;
