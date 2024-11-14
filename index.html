@@ -13,8 +13,8 @@
         }
         .menu {
             display: flex;
-            flex-direction: column; /* Alinha os botões em coluna */
-            align-items: center; /* Centraliza os botões */
+            flex-direction: column;
+            align-items: center;
             margin-top: 20px;
         }
         .menu button {
@@ -25,7 +25,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            width: 200px; /* Tamanho fixo para os botões */
+            width: 200px;
         }
         .menu button:hover {
             background-color: #0077cc;
@@ -46,8 +46,26 @@
         <button onclick="window.location.href='broca_redonda.html'">Broca Redonda</button>
         <button onclick="window.location.href='broca_triangular.html'">Broca Triangular</button>
         <button onclick="window.location.href='configuracoes.html'">Configurações</button>
+        <button onclick="atualizarDados()">Atualizar</button>
     </div>
     <!-- Imagem logo abaixo dos botões -->
     <img src="https://raw.githubusercontent.com/fbc022/fbc022.github.io/refs/heads/main/rodape.jpg" alt="Imagem de rodapé" class="footer-image">
+
+    <script>
+        // Função para "atualizar" salvando uma data no localStorage
+        function atualizarDados() {
+            const dataAtualizacao = new Date().toLocaleString(); // Data e hora atual
+            localStorage.setItem('ultimaAtualizacao', dataAtualizacao); // Salva no localStorage
+            alert('Dados atualizados em ' + dataAtualizacao);
+        }
+
+        // Exibir data de última atualização ao carregar a página
+        window.onload = function() {
+            const ultimaAtualizacao = localStorage.getItem('ultimaAtualizacao');
+            if (ultimaAtualizacao) {
+                alert('Última atualização foi em: ' + ultimaAtualizacao);
+            }
+        };
+    </script>
 </body>
 </html>
